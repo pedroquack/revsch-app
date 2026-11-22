@@ -1,14 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import Produtos from "./pages/produtos/Produtos";
 import Categorias from "./pages/categorias/Categorias";
 import Segmentos from "./pages/segmentos/Segmentos";
 import Lojas from "./pages/lojas/Lojas";
 import './App.css'
+import Loja from "./pages/lojas/Loja";
+import CriarLoja from "./pages/lojas/CriarLoja";
+import EditarLoja from "./pages/lojas/EditarLoja";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer/>
       <Navbar />
       <div className="App">
       </div>
@@ -16,7 +22,12 @@ function App() {
         <Route path="/" element={<Produtos/>}/>
         <Route path="/categorias" element={<Categorias/>}/>
         <Route path="/segmentos" element={<Segmentos/>}/>
-        <Route path="/lojas" element={<Lojas/>}/>
+        <Route path="/lojas">
+          <Route index element={<Lojas/>}/>
+          <Route path=":idLoja" element={<Loja/>}/>
+          <Route path="criar" element={<CriarLoja/>}/>
+          <Route path="editar/:idLoja" element={<EditarLoja/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

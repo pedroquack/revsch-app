@@ -1,0 +1,151 @@
+.loja-detalhe-container {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.loja-voltar {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #3483fa;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.loja-voltar:hover {
+  text-decoration: underline;
+}
+
+.loja-detalhe-card {
+  background-color: #fff;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  overflow: hidden;
+}
+
+.loja-detalhe-imagem-wrapper {
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #f0f0f0;
+  min-height: 280px;
+}
+
+.loja-detalhe-imagem {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.loja-detalhe-info {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.loja-detalhe-id {
+  font-size: 0.8rem;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.loja-detalhe-nome {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.loja-detalhe-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.loja-detalhe-label {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.loja-detalhe-url {
+  color: #3483fa;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.loja-detalhe-url:hover {
+  text-decoration: underline;
+}
+
+.loja-detalhe-acoes {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.loja-btn-editar {
+  background-color: #3483fa;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.loja-btn-editar:hover {
+  background-color: #2968c8;
+}
+
+.loja-btn-excluir {
+  background-color: #fff;
+  color: #d93025;
+  border: 1px solid #d93025;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.loja-btn-excluir:hover {
+  background-color: #d93025;
+  color: #fff;
+}
+
+.loja-nao-encontrada {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6;
+  text-align: center;
+  color: #666;
+}
+
+@media (max-width: 680px) {
+  .loja-detalhe-card {
+    grid-template-columns: 1fr;
+  }
+
+  .loja-detalhe-imagem-wrapper {
+    border-right: none;
+    border-bottom: 1px solid #f0f0f0;
+    height: 220px;
+  }
+}
