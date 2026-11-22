@@ -1,0 +1,108 @@
+.navbar {
+  background-color: #ffe600;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  font-family: "Proxima Nova", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #333;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.navbar-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #2d3277;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.brand-badge {
+  background-color: #2d3277;
+  color: #ffe600;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.tagline {
+  font-size: 0.8rem;
+  color: #333;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: rgba(51, 51, 51, 0.75);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-link:hover {
+  color: #111;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.nav-link.active {
+  color: #111;
+  font-weight: 700;
+  background-color: rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 -2px 0 #2d3277;
+}
+
+@media (max-width: 768px) {
+  .navbar-top {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tagline {
+    display: none;
+  }
+
+  .search-form {
+    order: 3;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .navbar-links {
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+}
