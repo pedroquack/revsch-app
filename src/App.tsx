@@ -2,6 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Produtos from "./pages/produtos/Produtos";
 import Categorias from "./pages/categorias/Categorias";
+import Categoria from "./pages/categorias/Categoria";
+import CriarCategoria from "./pages/categorias/CriarCategoria";
+import EditarCategoria from "./pages/categorias/EditarCategoria";
 import Segmentos from "./pages/segmentos/Segmentos";
 import Lojas from "./pages/lojas/Lojas";
 import './App.css'
@@ -20,8 +23,13 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<Produtos/>}/>
-        <Route path="/categorias" element={<Categorias/>}/>
         <Route path="/segmentos" element={<Segmentos/>}/>
+        <Route path="/categorias">
+          <Route index element={<Categorias/>}/>
+          <Route path=":idCategoria" element={<Categoria/>}/>
+          <Route path="criar" element={<CriarCategoria/>}/>
+          <Route path="editar/:idCategoria" element={<EditarCategoria/>}/>
+        </Route>
         <Route path="/lojas">
           <Route index element={<Lojas/>}/>
           <Route path=":idLoja" element={<Loja/>}/>
