@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import axios from "axios";
 import Response from "../../types/response";
 import { useNavigate } from "react-router-dom";
+import { path } from "../../api";
 
 export default function Lojas() {
 
@@ -15,7 +16,7 @@ export default function Lojas() {
 
     const getLojas = async () => {
         try {
-            const response = await axios.get("http://localhost:5191/lojas")
+            const response = await axios.get(`${path}/lojas`)
 
             const data: Response<Loja[]> = response.data
             if (data.sucesso === false) {

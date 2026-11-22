@@ -17,7 +17,7 @@ export default function Loja() {
 
     const getLoja = async (id: number) => {
         try {
-            const response = await axios.get(`http://localhost:5191/loja/${id}`)
+            const response = await axios.get(`${path}/loja/${id}`)
 
             const data: Response<Loja> = response.data
             if (data.sucesso === false) {
