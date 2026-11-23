@@ -4,3 +4,9 @@ export default interface Response<T>{
     timestamp: string;
     dados?: T
 }
+
+export interface FiltrarProdutos{
+    idLoja?: number;
+    idCategoria?: number;
+    nomeProduto?: string;
+}
