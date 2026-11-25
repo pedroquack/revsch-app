@@ -13,29 +13,45 @@ import CriarLoja from "./pages/lojas/CriarLoja";
 import EditarLoja from "./pages/lojas/EditarLoja";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import EditarProduto from "./pages/produtos/EditarProduto";
+import CriarProduto from "./pages/produtos/CriarProduto";
+import Segmento from "./pages/segmentos/Segmento";
+import CriarSegmento from "./pages/segmentos/CriarSegmento";
+import EditarSegmento from "./pages/segmentos/EditarSegmento";
+
+
+
 
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer/>
+      <ToastContainer />
       <Navbar />
       <div className="App">
       </div>
       <Routes>
-        <Route path="/" element={<Produtos/>}/>
-        <Route path="/segmentos" element={<Segmentos/>}/>
+        <Route path="/" element={<Produtos />} />
+        <Route path="/segmentos">
+          <Route index element={<Segmentos />} />
+          <Route path=":idSegmento" element={<Segmento />} />
+          <Route path="criar" element={<CriarSegmento />} />
+          <Route path="editar/:idSegmento" element={<EditarSegmento />} />
+        </Route>
         <Route path="/categorias">
-          <Route index element={<Categorias/>}/>
-          <Route path=":idCategoria" element={<Categoria/>}/>
-          <Route path="criar" element={<CriarCategoria/>}/>
-          <Route path="editar/:idCategoria" element={<EditarCategoria/>}/>
+          <Route index element={<Categorias />} />
+          <Route path=":idCategoria" element={<Categoria />} />
+          <Route path="criar" element={<CriarCategoria />} />
+          <Route path="editar/:idCategoria" element={<EditarCategoria />} />
         </Route>
         <Route path="/lojas">
-          <Route index element={<Lojas/>}/>
-          <Route path=":idLoja" element={<Loja/>}/>
-          <Route path="criar" element={<CriarLoja/>}/>
-          <Route path="editar/:idLoja" element={<EditarLoja/>}/>
+          <Route index element={<Lojas />} />
+          <Route path=":idLoja" element={<Loja />} />
+          <Route path="criar" element={<CriarLoja />} />
+          <Route path="editar/:idLoja" element={<EditarLoja />} />
         </Route>
+        <Route path="/produtos/editar/:idProtudo" element={<EditarProduto />} />
+        <Route path="/produtos/criar" element={<CriarProduto />} />
+
       </Routes>
     </BrowserRouter>
   );
