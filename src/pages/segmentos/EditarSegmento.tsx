@@ -5,9 +5,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Response from "../../types/response";
 import { Segmento } from "../../models/segmento";
+import { Categoria } from "../../models/categoria";
 import Loading from "../../components/Loading";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import Select, { SelectOption } from "../../components/Select";
 import { path } from "../../api";
 import "../categorias/CriarCategoria.css";
 
@@ -16,6 +18,7 @@ export default function EditarSegmento() {
     const { idSegmento } = useParams();
 
     const [segmento, setSegmento] = useState<Segmento | null>(null);
+    const [categorias, setCategorias] = useState<SelectOption[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -25,17 +28,32 @@ export default function EditarSegmento() {
 
         try {
 
-            const response = await axios.get(`${path}/segmento/${id}`);
+            const [segmentoResponse, categoriasResponse] = await Promise.all([
+                axios.get(`${path}/segmento/${id}`),
+                axios.get(`${path}/categorias`),
+            ]);
 
-            const data: Response<Segmento> = response.data;
+            const data: Response<Segmento> = segmentoResponse.data;
+            const categoriasData: Response<Categoria[]> = categoriasResponse.data;
 
             if (data.sucesso === false) {
                 throw new Error(data.mensagem);
             }
 
+            if (categoriasData.sucesso === false) {
+                throw new Error(categoriasData.mensagem);
+            }
+
             if (data.dados) {
                 setSegmento(data.dados);
             }
+
+            setCategorias(
+                (categoriasData.dados || []).map((categoria) => ({
+                    value: categoria.id,
+                    label: categoria.nome,
+                }))
+            );
 
         } catch (error) {
             console.error(error);
@@ -61,6 +79,7 @@ export default function EditarSegmento() {
 
             const body = {
                 nome: form.get("nome"),
+                categoriaId: Number(form.get("categoriaId")),
             };
 
             const response = await axios.put(
@@ -143,6 +162,16 @@ export default function EditarSegmento() {
                         name="nome"
                         label="Nome do segmento"
                         defaultValue={segmento.nome}
+                        disabled={loading}
+                        required
+                    />
+
+                    <Select
+                        name="categoriaId"
+                        label="Categoria"
+                        placeholder="Selecione uma categoria"
+                        options={categorias}
+                        defaultValue={segmento.categoriaId ?? ""}
                         disabled={loading}
                         required
                     />

@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditarProduto from "./pages/produtos/EditarProduto";
 import CriarProduto from "./pages/produtos/CriarProduto";
+import Produto from "./pages/produtos/Produto";
 import Segmento from "./pages/segmentos/Segmento";
 import CriarSegmento from "./pages/segmentos/CriarSegmento";
 import EditarSegmento from "./pages/segmentos/EditarSegmento";
@@ -49,7 +50,8 @@ function App() {
           <Route path="criar" element={<CriarLoja />} />
           <Route path="editar/:idLoja" element={<EditarLoja />} />
         </Route>
-        <Route path="/produtos/editar/:idProtudo" element={<EditarProduto />} />
+        <Route path="/produtos/:idProduto" element={<Produto />} />
+        <Route path="/produtos/editar/:idProduto" element={<EditarProduto />} />
         <Route path="/produtos/criar" element={<CriarProduto />} />
 
       </Routes>

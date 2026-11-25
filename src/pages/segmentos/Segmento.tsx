@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Segmento } from "../../models/segmento";
+import { Categoria } from "../../models/categoria";
 import Response from "../../types/response";
 import { path } from "../../api";
 import Loading from "../../components/Loading";
@@ -15,6 +16,7 @@ export default function SegmentoDetalhe() {
     const { idSegmento } = useParams();
 
     const [segmento, setSegmento] = useState<Segmento | null>(null);
+    const [categoria, setCategoria] = useState<Categoria | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
     const navigate = useNavigate();
@@ -31,6 +33,14 @@ export default function SegmentoDetalhe() {
 
             if (data.dados) {
                 setSegmento(data.dados);
+
+                if (data.dados.categoriaId) {
+                    const catResponse = await axios.get(`${path}/categoria/${data.dados.categoriaId}`);
+                    const catData: Response<Categoria> = catResponse.data;
+                    if (catData.sucesso !== false && catData.dados) {
+                        setCategoria(catData.dados);
+                    }
+                }
             }
 
         } catch (error) {
@@ -121,6 +131,15 @@ export default function SegmentoDetalhe() {
                     <h1 className="categoria-detalhe-nome">
                         {segmento.nome}
                     </h1>
+
+                    {categoria && (
+                        <div>
+                            <span>Categoria: </span>
+                            <Link to={`/categorias/${categoria.id}`} className="categoria-voltar">
+                                {categoria.nome}
+                            </Link>
+                        </div>
+                    )}
 
                     <div className="categoria-detalhe-acoes">
 

@@ -11,6 +11,7 @@ import Input from "../../components/Input";
 import Select, { SelectOption } from "../../components/Select";
 import { Categoria } from "../../models/categoria";
 import { Loja } from "../../models/loja";
+import { Segmento } from "../../models/segmento";
 
 export default function Produtos() {
 
@@ -18,6 +19,7 @@ export default function Produtos() {
     const [loading, setLoading] = useState<boolean>(true);
     const [categorias, setCategorias] = useState<SelectOption[]>([])
     const [lojas, setLojas] = useState<SelectOption[]>([])
+    const [segmentos, setSegmentos] = useState<SelectOption[]>([])
     const navigate = useNavigate();
 
     const getProdutos = async () => {
@@ -93,12 +95,39 @@ export default function Produtos() {
         }
     };
 
+    const getSegmentoOptions = async () => {
+        try {
+            const response = await axios.get(`${path}/segmentos`);
+            const data: Response<Segmento[]> = response.data;
+
+            if (data.sucesso === false) {
+                throw new Error(data.mensagem);
+            }
+
+            if (data.dados) {
+                let segmentoOptions: SelectOption[] = data.dados.map(s => {
+                    return {
+                        label: s.nome,
+                        value: s.id
+                    }
+                })
+                segmentoOptions = [{ value: '', label: "Todos" }, ...segmentoOptions];
+                setSegmentos(segmentoOptions);
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const filtrarProdutos = async (form: FormData) => {
         try {
 
             const nomeProduto = form.get("nomeProduto")?.toString().trim();
             const idLoja = form.get("idLoja")?.toString();
             const idCategoria = form.get("idCategoria")?.toString();
+            const idSegmento = form.get("idSegmento")?.toString();
             const params: Record<string, string> = {};
             if (nomeProduto){
                 params.nomeProduto = nomeProduto;
@@ -108,6 +137,9 @@ export default function Produtos() {
             }
             if (idCategoria){
                 params.idCategoria = idCategoria;
+            }
+            if (idSegmento){
+                params.idSegmento = idSegmento;
             }
 
             const response = await axios.get(`${path}/produtos/filtrar`, {
@@ -133,6 +165,7 @@ export default function Produtos() {
         getProdutos();
         getCategoriaOptions();
         getLojaOptions();
+        getSegmentoOptions();
     }, [])
 
     if (loading) {
@@ -165,6 +198,12 @@ export default function Produtos() {
                         defaultValue={''}
                         label="Categoria"
                         options={categorias}
+                    />
+                    <Select
+                        name="idSegmento"
+                        defaultValue={''}
+                        label="Segmento"
+                        options={segmentos}
                     />
                     <div className="produtos-form-acoes">
                         <Button

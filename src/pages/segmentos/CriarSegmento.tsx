@@ -1,13 +1,15 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Input from "../../components/Input";
+import Select, { SelectOption } from "../../components/Select";
 import Button from "../../components/Button";
 import { path } from "../../api";
 import Response from "../../types/response";
 import { Segmento } from "../../models/segmento";
+import { Categoria } from "../../models/categoria";
 import "../categorias/CriarCategoria.css";
 
 
@@ -15,8 +17,39 @@ export default function CriarSegmento() {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const [categorias, setCategorias] = useState<SelectOption[]>([]);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const carregarCategorias = async () => {
+            try {
+                const response = await axios.get(`${path}/categorias`);
+                const data: Response<Categoria[]> = response.data;
+
+                if (!data.sucesso) {
+                    throw new Error(
+                        data.mensagem || "Não foi possível carregar as categorias."
+                    );
+                }
+
+                setCategorias(
+                    (data.dados || []).map((categoria) => ({
+                        value: categoria.id,
+                        label: categoria.nome,
+                    }))
+                );
+            } catch (err) {
+                if (axios.isAxiosError(err) && err.response?.data?.mensagem) {
+                    setError(err.response.data.mensagem);
+                } else if (err instanceof Error) {
+                    setError(err.message);
+                }
+            }
+        };
+
+        carregarCategorias();
+    }, []);
 
     const criarSegmento = async (form: FormData) => {
 
@@ -27,6 +60,7 @@ export default function CriarSegmento() {
 
             const body = {
                 nome: form.get("nome"),
+                categoriaId: Number(form.get("categoriaId")),
             };
 
             const response = await axios.post(
@@ -93,6 +127,16 @@ export default function CriarSegmento() {
                         name="nome"
                         label="Nome do segmento"
                         placeholder="Ex: Tecnologia"
+                        disabled={loading}
+                        required
+                    />
+
+                    <Select
+                        name="categoriaId"
+                        label="Categoria"
+                        placeholder="Selecione uma categoria"
+                        options={categorias}
+                        defaultValue=""
                         disabled={loading}
                         required
                     />

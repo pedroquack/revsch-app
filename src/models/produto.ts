@@ -1,4 +1,5 @@
 import Avaliacao from "./avaliacao";
+import { Segmento } from "./segmento";
 
 export default interface Produto{
     id: number;
@@ -7,5 +8,6 @@ export default interface Produto{
     lojaId: number;
     segmentoId: number;
     mediaNotas: number;
+    segmento: Segmento;
     avaliacoes: Avaliacao[];
 }
